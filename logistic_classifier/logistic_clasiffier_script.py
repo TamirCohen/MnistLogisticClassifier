@@ -1,15 +1,12 @@
-# %%
-from tokenize import String
 import numpy as np
-import logging
 import gzip
 import matplotlib.pyplot as plt
 from dataclasses import dataclass
 import numpy.typing as npt
 
-
 PWD="/home/duzicman/projects/tau/statistical_machine_learning/logistic_classifier/datasets"
 DATASET = {"t_labels": {"path" :PWD + "/train-labels-idx1-ubyte.gz", "offset":8}, "x_samples": {"path": PWD + "/train-images-idx3-ubyte.gz", "offset":16}}
+
 def show_image(image):
     pixels = np.reshape(image, (IMAGE_LENGTH, IMAGE_LENGTH))
     plt.imshow(pixels, cmap='gray')
@@ -141,18 +138,14 @@ class MnistLogisticClassifier():
         print("Validation Loss {}".format(validation_loss))
         print("Validation Accuraccy {}".format(validation_accuracy))
         print("Steps {}".format(len(training_losses)))
-# %%
 
 
 #TODO add typing in each function
 def main():
-    # %%
     data = MnistLogisticData(DATASET)
     data.create_data_sets()
-    # %%
     classifier = MnistLogisticClassifier(data, initial_weights=np.zeros((data.IMAGE_SIZE + 1, data.class_number)), learning_rate=0.000000002, accuracy_epsilon=0.001)
     classifier.gradient_descent()
-    # %%
     #TODO show test Accuracy
     
 if __name__ == "__main__":
